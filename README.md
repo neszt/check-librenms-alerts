@@ -1,5 +1,4 @@
 # check librenms alerts
-=======================
 
 This is a librenms alert check script for nagios.
 
@@ -7,6 +6,6 @@ The script queries the devices, rules and alarms via the librenms api, and then 
 
 ## INSTALL
 ```bash
-$ wget -O /usr/local/bin/check_librenms_alerts.pl clone https://raw.githubusercontent.com/neszt/check-librenms-alerts/master/check_librenms_alerts.pl
+$ wget -O /usr/local/bin/check_librenms_alerts.pl https://raw.githubusercontent.com/neszt/check-librenms-alerts/master/check_librenms_alerts.pl
 $ chmod +x /usr/local/bin/check_librenms_alerts.pl
 ```
