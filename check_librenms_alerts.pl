@@ -10,7 +10,7 @@ use Data::Dumper;
 
 sub VERSION_MESSAGE {#{{{
 
-	print "$0 v0.1\n";
+	print "$0 v1.0.0\n";
 
 }#}}}
 
