@@ -18,7 +18,7 @@ sub HELP_MESSAGE {#{{{
 
 	print "Usage: $0 [OPTIONS...]\n";
 	print "\n";
-	print "-h	librenms host (mandarory, eg.: https://librenms.org)\n";
+	print "-h	librenms host (mandarory, eg.: https://librenms.org or http://librenms.org or librenms.org; defaults to https if not specified)\n";
 	print "-s	skip ssl check (optional)\n";
 	print "-t	token (mandatory, your api token - https://docs.librenms.org/API/#tokens)\n";
 	print "-d	device_id filter (optional, comma separated device_ids, use negative ids to skip)\n";
@@ -87,6 +87,10 @@ sub main {#{{{
 	my $is_skip_ssl_check = $opts->{s};
 	my $verbose_level = $opts->{v} // 1;
 	my $api_v = '/api/v0/';
+
+	if ( $api_url_plain !~ /^http[s]:\/\// ) {
+		$api_url_plain = "https://$api_url_plain";
+	}
 
 	my $api_url = $api_url_plain . $api_v;
 
