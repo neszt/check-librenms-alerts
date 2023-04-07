@@ -1,0 +1,19 @@
+define command {
+        command_name    check_librenms_alerts_all
+        command_line    /usr/local/bin/check_librenms_alerts.pl -h $HOSTADDRESS$ -t '$ARG1$' -v 2
+}
+
+define command {
+        command_name    check_librenms_alerts_rule
+        command_line    /usr/local/bin/check_librenms_alerts.pl -h $HOSTADDRESS$ -t '$ARG1$' -r '$ARG2$' -v 2
+}
+
+define command {
+        command_name    check_librenms_alerts_device
+        command_line    /usr/local/bin/check_librenms_alerts.pl -h $HOSTADDRESS$ -t '$ARG1$' -d '$ARG2$' -v 2
+}
+
+define command {
+        command_name    check_librenms_alerts_rule_device
+        command_line    /usr/local/bin/check_librenms_alerts.pl -h $HOSTADDRESS$ -t '$ARG1$' -r '$ARG2$' -d '$ARG3$' -v 2
+}
