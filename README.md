@@ -1,8 +1,8 @@
 # check librenms alerts
 
-This is a librenms alert check script for nagios.
+This is a LibreNMS alert check script for Nagios / Icinga.
 
-The script queries the devices, rules and alarms via the librenms api, and then produces standard nagios output based on these and the arguments.
+The script queries the devices, rules and alarms via the librenms api, and then produces standard Nagios output based on these and the arguments.
 
 ## INSTALL
 ```bash
