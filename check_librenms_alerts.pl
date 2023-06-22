@@ -8,6 +8,7 @@ use LWP;
 use JSON::XS;
 use Time::HiRes qw(gettimeofday tv_interval);
 use Data::Dumper;
+$Data::Dumper::Sortkeys = 1;
 
 sub VERSION_MESSAGE {#{{{
 
