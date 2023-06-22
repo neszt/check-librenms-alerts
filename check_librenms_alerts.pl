@@ -14,6 +14,7 @@ sub VERSION_MESSAGE {#{{{
 
 	print "$0 v1.0.0\n";
 
+	return;
 }#}}}
 
 sub HELP_MESSAGE {#{{{

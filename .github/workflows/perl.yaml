@@ -20,4 +20,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: perl -V
-      - run: perl -MPerl::Critic=critique -e "my @c = critique({-severity => 'gentle'}, shift); print @c ; exit (@c?1:0)" check_librenms_alerts.pl
+      - run: perl -MPerl::Critic=critique -e "my @c = critique({-severity => 'stern'}, shift); print @c ; exit (@c?1:0)" check_librenms_alerts.pl
