@@ -19,6 +19,7 @@ Usage: check_librenms_alerts.pl [OPTIONS...]
 -t      token (mandatory, your api token - https://docs.librenms.org/API/#tokens)
 -d      device_id filter (optional, comma separated device_ids, use negative ids to skip)
 -r      rule_id filter (optional, comma separated rules_ids, use 'a' for all and negative ids to skip; default 'a')
+-e      alert timestamp filter (optional, look only seconds back from now)
 -a      dump all data (optional, for debuging purposes)
 -v      verbose level (0=none, 1=count info, 2=detailed info; default 1)
 ```
