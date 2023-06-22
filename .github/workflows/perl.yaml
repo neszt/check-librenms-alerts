@@ -1,0 +1,23 @@
+name: test
+
+on:
+  push:
+    branches:
+      - '*'
+    tags-ignore:
+      - '*'
+  pull_request:
+
+jobs:
+  perl:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        perl-version:
+          - 'latest'
+    container:
+      image: perldocker/perl-tester:${{ matrix.perl-version }}
+    steps:
+      - uses: actions/checkout@v3
+      - run: perl -V
+      - run: perl -MPerl::Critic=critique -e "my @c = critique({-severity => 'gentle'}, shift); print @c ; exit (@c?1:0)" check_librenms_alerts.pl
