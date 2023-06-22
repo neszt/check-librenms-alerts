@@ -25,6 +25,7 @@ sub HELP_MESSAGE {#{{{
 	print "-t	token (mandatory, your api token - https://docs.librenms.org/API/#tokens)\n";
 	print "-d	device_id filter (optional, comma separated device_ids, use negative ids to skip)\n";
 	print "-r	rule_id filter (optional, comma separated rules_ids, use 'a' for all and negative ids to skip; default 'a')\n";
+	print "-e	alert timestamp filter (optional, look only seconds back from now)\n";
 	print "-a	dump all data (optional, for debuging purposes)\n";
 	print "-v	verbose level (0=none, 1=count info, 2=detailed info; default 1)\n";
 
@@ -74,17 +75,26 @@ sub api_result_array_to_hash {#{{{
 	return $r;
 }#}}}
 
+sub get_datetime {#{{{
+	my $seconds_back = shift;
+
+	my @lt = localtime(time - $seconds_back);
+
+	return sprintf("%4d-%02d-%02d %02d:%02d:%02d", $lt[5] + 1900, $lt[4] + 1, $lt[3], $lt[2], $lt[1], $lt[0]);
+}#}}}
+
 sub main {#{{{
 
 	my $t0 = [gettimeofday()];
 	my $opts = {};
 	$Getopt::Std::STANDARD_HELP_VERSION = 1;
-	getopts('h:t:d:r:asv:', $opts);
+	getopts('h:t:d:r:e:asv:', $opts);
 
 	my $api_url_plain = $opts->{h} // die HELP_MESSAGE() . "\n";
 	my $token = $opts->{t} // die HELP_MESSAGE() . "\n";
 	my $device_filter = $opts->{d};
 	my $rule_filter = $opts->{r} // 'a';
+	my $ts_filter = $opts->{e};
 	my $is_dump_all_data = $opts->{a};
 	my $is_skip_ssl_check = $opts->{s};
 	my $verbose_level = $opts->{v} // 1;
@@ -147,6 +157,14 @@ sub main {#{{{
 	my $output_detail_map = {};
 
 	foreach my $alert ( @{$alerts->{alerts}} ) {
+		if ( $ts_filter ) {
+			my $timestamp = $alert->{timestamp};
+			my $filter_datetime = get_datetime($ts_filter);
+			if ( $timestamp lt $filter_datetime ) {
+				next;
+			}
+		}
+
 		my $device_id = $alert->{device_id};
 		if ( $device_filter && !$device_ids->{$device_id} ) {
 			next;
