@@ -5,7 +5,7 @@ use strict;
 use warnings;
 use Getopt::Std;
 use LWP;
-use JSON::XS;
+use Cpanel::JSON::XS;
 use Time::HiRes qw(gettimeofday tv_interval);
 use Data::Dumper;
 $Data::Dumper::Sortkeys = 1;
@@ -46,7 +46,7 @@ sub resource_select {#{{{
 	}
 
 	my $content_json = $resp->content;
-	my $objects = JSON::XS->new->decode($content_json);
+	my $objects = Cpanel::JSON::XS->new->decode($content_json);
 
 	return $objects;
 }#}}}
