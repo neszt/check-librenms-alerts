@@ -158,6 +158,8 @@ sub main {#{{{
 	my $output_detail_map = {};
 
 	foreach my $alert ( @{$alerts->{alerts}} ) {
+		next if $alert->{open} != 1; # 1 = active, 0 = historical
+		next if $alert->{state} != 1; # 0 = ok, 1 = alert, 2 = ack
 		if ( $ts_filter ) {
 			my $timestamp = $alert->{timestamp};
 			my $filter_datetime = get_datetime($ts_filter);
@@ -177,7 +179,6 @@ sub main {#{{{
 
 		$output_detail_map->{rule_id}->{$rule_id}++;
 		$all_count++;
-		next if $alert->{state} != 1;
 		if ( $alert->{severity} eq 'critical' ) {
 			$crit_count++;
 		} elsif ( $alert->{severity} eq 'warning' ) {
